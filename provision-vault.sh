@@ -100,15 +100,15 @@ journalctl -u vault
 #
 #       Vault does not store the master key. Without at least 3 keys,
 #       your vault will remain permanently sealed.
-pushd ~
+cd
 install -o root -g root -m 600 /dev/null vault-operator-init-result.txt
 install -o root -g root -m 600 /dev/null /opt/vault/etc/vault-unseal-keys.txt
 install -o root -g root -m 600 /dev/null .vault-token
 vault operator init >vault-operator-init-result.txt
 awk '/Unseal Key [0-9]+: /{print $4}' vault-operator-init-result.txt | head -3 >/opt/vault/etc/vault-unseal-keys.txt
 awk '/Initial Root Token: /{print $4}' vault-operator-init-result.txt >.vault-token
-cp .vault-token /vagrant/shared/vault-root-token.txt
-popd
+#cp .vault-token /vagrant/shared/vault-root-token.txt
+#popd
 cat >/opt/vault/bin/vault-unseal <<EOF
 #!/bin/bash
 set -eu
