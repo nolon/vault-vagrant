@@ -134,7 +134,7 @@ vault audit list
 
 # enable the approle authentication method.
 # NB this is needed by goldfish and our examples.
-vault auth enable approle
+#vault auth enable approle
 
 # enable the userpass authentication method.
 # NB this is needed by our examples.
