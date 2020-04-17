@@ -128,8 +128,8 @@ vault status
 
 # enable auditing to stdout (use journalctl -u vault to see it).
 # see https://www.vaultproject.io/docs/commands/audit/enable.html
-# see https://www.vaultproject.io/docs/audit/file.html
-vault audit enable file file_path=stdout log_raw=true
+# see https://www.vaultproject.io/docs/audit/file.html log_raw=true
+vault audit enable file file_path=/tmp/vault_audit.log 
 vault audit list
 
 # enable the approle authentication method.
