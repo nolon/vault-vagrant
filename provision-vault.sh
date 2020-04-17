@@ -49,8 +49,8 @@ export VAULT_ADDR="https://$domain:8200"
 echo export VAULT_ADDR="https://$domain:8200" >>~/.bash_login
 install -o vault -g vault -m 700 -d /opt/vault/data
 install -o root -g vault -m 750 -d /opt/vault/etc
-install -o root -g vault -m 440 /vagrant/shared/example-ca/$domain-crt.pem /opt/vault/etc
-install -o root -g vault -m 440 /vagrant/shared/example-ca/$domain-key.pem /opt/vault/etc
+install -o root -g vault -m 440 /opt/pki/ca/$domain-crt.pem /opt/vault/etc
+install -o root -g vault -m 440 /opt/pki/ca/$domain-key.pem /opt/vault/etc
 install -o root -g vault -m 640 /dev/null /opt/vault/etc/vault.hcl
 cat >/opt/vault/etc/vault.hcl <<EOF
 cluster_name = "example"

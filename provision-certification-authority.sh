@@ -1,3 +1,3 @@
 #!/bin/bash
 set -eux
-bash /vagrant/provision-certificate.sh ''
+bash /tmp/src/vault-vagrant//provision-certificate.sh ''

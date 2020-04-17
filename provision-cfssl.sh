@@ -36,7 +36,7 @@ cat >/opt/pki/ca/config/ca-config.json <<EOF
   }
 }
 EOF
-cat >/opt/pki/ca/config/ca-config.json <<EOF
+cat >/opt/pki/ca/config/ca-csr.json <<EOF
 {
     "CN": "example.com",
     "hosts": [
