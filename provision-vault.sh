@@ -67,7 +67,7 @@ storage "file" {
 listener "tcp" {
     address = "0.0.0.0:8200"
     tls_disable = false
-    tls_cert_file = "/opt/vault/etc/vault-crt.pem"
+    tls_cert_file = "/opt/vault/etc/vault.pem"
     tls_key_file = "/opt/vault/etc/vault-key.pem"
 }
 EOF
