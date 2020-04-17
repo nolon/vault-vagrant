@@ -49,8 +49,8 @@ export VAULT_ADDR="https://$domain:8200"
 echo export VAULT_ADDR="https://$domain:8200" >>~/.bash_login
 install -o vault -g vault -m 700 -d /opt/vault/data
 install -o root -g vault -m 750 -d /opt/vault/etc
-install -o root -g vault -m 440 /opt/pki/ca/$domain-crt.pem /opt/vault/etc
-install -o root -g vault -m 440 /opt/pki/ca/$domain-key.pem /opt/vault/etc
+install -o root -g vault -m 440 /opt/pki/ca/vault.pem /opt/vault/etc
+install -o root -g vault -m 440 /opt/pki/ca/vault-key.pem /opt/vault/etc
 install -o root -g vault -m 640 /dev/null /opt/vault/etc/vault.hcl
 cat >/opt/vault/etc/vault.hcl <<EOF
 cluster_name = "example"
@@ -67,8 +67,8 @@ storage "file" {
 listener "tcp" {
     address = "0.0.0.0:8200"
     tls_disable = false
-    tls_cert_file = "/opt/vault/etc/$domain-crt.pem"
-    tls_key_file = "/opt/vault/etc/$domain-key.pem"
+    tls_cert_file = "/opt/vault/etc/vault-crt.pem"
+    tls_key_file = "/opt/vault/etc/vault-key.pem"
 }
 EOF
 install -o root -g root -m 700 /dev/null /opt/vault/bin/vault-unseal
