@@ -85,6 +85,6 @@ cfssl genkey -initca config/ca-csr.json | cfssljson -bare ca
 cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=config/ca-config.json -profile=default config/vault-csr.json | cfssljson -bare vault
 
 if [ ! -f /usr/local/share/ca-certificates/ca.pem ]; then
-    cp ca.pem /usr/local/share/ca-certificates/ca.pem
+    cp ca.pem /etc/ssl/certs/ca.pem
     update-ca-certificates -v
 fi
