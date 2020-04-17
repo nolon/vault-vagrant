@@ -18,6 +18,7 @@ curl -s https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip >
 cd /tmp
 unzip vault.zip
 install -d /opt/vault/bin
+cp vault /opt/vault/bin
 ln -s /opt/vault/bin/vault /usr/local/bin
 rm vault.zip
 
