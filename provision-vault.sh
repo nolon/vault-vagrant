@@ -14,20 +14,12 @@ adduser \
 install -d -o root -g vault -m 755 /opt/vault
 
 # install vault.
-vault_version=0.11.4
-vault_artifact=vault_${vault_version}_linux_amd64.zip
-vault_artifact_url=https://releases.hashicorp.com/vault/$vault_version/$vault_artifact
-vault_artifact_sha=3e44826ffcf3756a72d6802d96ea244e605dad362ece27d5c8f8839fb69a7079
-vault_artifact_zip=/tmp/$vault_artifact
-wget -q $vault_artifact_url -O$vault_artifact_zip
-if [ "$(sha256sum $vault_artifact_zip | awk '{print $1}')" != "$vault_artifact_sha" ]; then
-    echo "downloaded $vault_artifact_url failed the checksum verification"
-    exit 1
-fi
+curl -s https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip > /tmp/vault.zip
+cd /tmp
+unzip vault.zip
 install -d /opt/vault/bin
-unzip $vault_artifact_zip -d /opt/vault/bin
 ln -s /opt/vault/bin/vault /usr/local/bin
-vault -v
+rm vault.zip
 
 # run as a service.
 # see https://www.vaultproject.io/guides/production.html
