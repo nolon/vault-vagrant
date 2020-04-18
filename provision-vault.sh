@@ -187,9 +187,22 @@ vault write auth/approle/role/ansible \
   token_ttl=24h \
   token_max_ttl=48h \
   policies="ansible-ssh"
-vault read -format=json auth/approle/role/ansible/role-id > role.json
-vault write -format=json -f auth/approle/role/ansible/secret-id > secretid.json
+#vault read -format=json auth/approle/role/ansible/role-id > role.json
+#vault write -format=json -f auth/approle/role/ansible/secret-id > secretid.json
 
+
+# Policy
+echo "[Setup-Vault] - Writing an Terraform create token policy"
+echo '
+path "auth/token/create" {
+capabilities = [ "update" ]
+}
+' | vault policy write terraform-token-create -
+
+vault token create -format=json \
+  -policy="ansible-ssh" \
+  -policy="terraform-token-create" \
+  -metadata="user"="terraform-user" > roleid-token.json
 
 # enable the PostgreSQL database secrets engine.
 # NB this is needed by our examples.
