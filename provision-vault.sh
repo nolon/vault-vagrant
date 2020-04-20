@@ -2,16 +2,8 @@
 set -eux
 
 # add the vault user.
-groupadd --system vault
-adduser \
-    --system \
-    --disabled-login \
-    --no-create-home \
-    --gecos '' \
-    --ingroup vault \
-    --home /opt/vault \
-    vault
-install -d -o root -g vault -m 755 /opt/vault
+useradd -r -m -d /opt/vault vault
+
 
 # install vault.
 curl -s https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip > /tmp/vault.zip
