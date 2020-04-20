@@ -1,4 +1,4 @@
-useradd -r -m -d /opt/pki
+useradd -r -m -d /opt/pki pki
 
 for bin in cfssl cfssl-certinfo cfssljson
  do
