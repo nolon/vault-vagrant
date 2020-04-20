@@ -72,8 +72,8 @@ cat >/opt/pki/ca/config/vault-csr.json <<EOF
 EOF
 
 cd /opt/pki/ca/
-/usr/local/bin/cfssl genkey -initca config/ca-csr.json | cfssljson -bare ca
-/usr/local/bin/cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=config/ca-config.json -profile=default config/vault-csr.json | cfssljson -bare vault
+/usr/local/bin/cfssl genkey -initca config/ca-csr.json | /usr/local/bin/cfssljson -bare ca
+/usr/local/bin/cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=config/ca-config.json -profile=default config/vault-csr.json | /usr/local/bin/cfssljson -bare vault
 
 if [ ! -f /usr/local/share/ca-certificates/ca.pem ]; then
     cp /opt/pki/ca/ca.pem /etc/ssl/certs/ca.pem
