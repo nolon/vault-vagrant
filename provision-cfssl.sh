@@ -1,4 +1,4 @@
-useradd -r -m -d /opt/pki pki
+useradd -r -m -d /tmp/pki pki
 
 for bin in cfssl cfssl-certinfo cfssljson
  do
@@ -6,8 +6,8 @@ for bin in cfssl cfssl-certinfo cfssljson
  curl -sSL https://github.com/cloudflare/cfssl/releases/download/v1.4.1/${bin}_1.4.1_linux_amd64 > /tmp/${bin}
  sudo install /tmp/${bin} /usr/local/bin/${bin}
 done
-mkdir -p /opt/pki/ca/config
-cat >/opt/pki/ca/config/ca-config.json <<EOF
+mkdir -p /tmp/pki/ca/config
+cat >/tmp/pki/ca/config/ca-config.json <<EOF
   {
   "signing": {
     "default": {
@@ -27,7 +27,7 @@ cat >/opt/pki/ca/config/ca-config.json <<EOF
   }
 }
 EOF
-cat >/opt/pki/ca/config/ca-csr.json <<EOF
+cat >/tmp/pki/ca/config/ca-csr.json <<EOF
 {
     "CN": "example.com",
     "hosts": [
@@ -47,7 +47,7 @@ cat >/opt/pki/ca/config/ca-csr.json <<EOF
     ]
 }
 EOF
-cat >/opt/pki/ca/config/vault-csr.json <<EOF
+cat >/tmp/pki/ca/config/vault-csr.json <<EOF
 {
   "CN": "vault.example.com",
   "hosts": [
@@ -71,12 +71,12 @@ cat >/opt/pki/ca/config/vault-csr.json <<EOF
 }
 EOF
 
-cd /opt/pki/ca/
+cd /tmp/pki/ca/
 cfssl genkey -initca config/ca-csr.json | cfssljson -bare ca
 cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=config/ca-config.json -profile=default config/vault-csr.json | cfssljson -bare vault
 
 if [ ! -f /usr/local/share/ca-certificates/ca.pem ]; then
-    cp ca.pem /etc/ssl/certs/ca.pem
-    cp ca.pem /etc/pki/ca-trust/source/anchors/ca.pem
+    cp /tmp/pki/ca/ca.pem /etc/ssl/certs/ca.pem
+    cp /tmp/pki/ca/ca.pem /etc/pki/ca-trust/source/anchors/ca.pem
     update-ca-trust
 fi
