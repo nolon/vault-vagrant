@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eux
-
+export PATH=$PATH:/usr/local/bin
 # add the vault user.
 useradd -r -m -d /opt/vault vault
 
