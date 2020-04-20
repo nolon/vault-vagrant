@@ -1,11 +1,4 @@
-groupadd --system pki
-adduser \
-    --system \
-    --disabled-login \
-    --ingroup pki \
-    --home /opt/pki \
-    pki
-install -d -o pki -g pki -m 755 /opt/pki
+useradd -r -m -d /opt/pki
 
 for bin in cfssl cfssl-certinfo cfssljson
  do
