@@ -2,8 +2,6 @@ groupadd --system pki
 adduser \
     --system \
     --disabled-login \
-    --no-create-home \
-    --gecos '' \
     --ingroup pki \
     --home /opt/pki \
     pki
@@ -86,5 +84,6 @@ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=config/ca-config.json -profi
 
 if [ ! -f /usr/local/share/ca-certificates/ca.pem ]; then
     cp ca.pem /etc/ssl/certs/ca.pem
-    update-ca-certificates -v
+    cp ca.pem /etc/pki/ca-trust/source/anchors/ca.pem
+    update-ca-trust
 fi

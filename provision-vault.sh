@@ -190,6 +190,13 @@ vault write auth/approle/role/ansible \
 #vault read -format=json auth/approle/role/ansible/role-id > role.json
 #vault write -format=json -f auth/approle/role/ansible/secret-id > secretid.json
 
+tee ansible-secret-read.json <<EOF
+{"policy":"path \"secret/ansible-secret\" {capabilities = [\"read\", \"list\"]}"}
+EOF
+
+tee ansible-roleid-read.json <<EOF
+{"policy":"path \"auth/approle/role//ansible-secret\" {capabilities = [\"read\", \"list\"]}"}
+EOF
 
 # Policy
 echo "[Setup-Vault] - Writing an Terraform create token policy"
